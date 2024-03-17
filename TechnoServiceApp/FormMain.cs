@@ -122,30 +122,33 @@ namespace TechnoServiceApp
 
             while(readerApplications.Read())
             {
-                int id = readerApplications.GetInt32(0);
-                string date = readerApplications.GetDateTime(1).ToString("dd.mm.yyyy");
-                string hardware = readerApplications.GetString(2);
-                string typeFault = readerApplications.GetString(3);
-                string descProblem = readerApplications.GetString(4);
-                string state = readerApplications.GetString(5);
-                string client = $"{readerApplications.GetString(6)} {readerApplications.GetString(7)} {readerApplications.GetString(8)}";
-                string telephoneClient = readerApplications.GetString(9);
-                string staff;
-                string telephoneStaff;
-                if (!readerApplications.IsDBNull(10))
+                if (!readerApplications.IsDBNull(0))
                 {
-                    staff = $"{readerApplications.GetString(10)} {readerApplications.GetString(11)} {readerApplications.GetString(12)}";
-                    telephoneStaff = readerApplications.GetString(13);
-                }
-                else
-                {
-                    staff = "";
-                    telephoneStaff = "";
-                }
+                    int id = readerApplications.GetInt32(0);
+                    string date = readerApplications.GetDateTime(1).ToString("dd.mm.yyyy");
+                    string hardware = readerApplications.GetString(2);
+                    string typeFault = readerApplications.GetString(3);
+                    string descProblem = readerApplications.GetString(4);
+                    string state = readerApplications.GetString(5);
+                    string client = $"{readerApplications.GetString(6)} {readerApplications.GetString(7)} {readerApplications.GetString(8)}";
+                    string telephoneClient = readerApplications.GetString(9);
+                    string staff;
+                    string telephoneStaff;
+                    if (!readerApplications.IsDBNull(10))
+                    {
+                        staff = $"{readerApplications.GetString(10)} {readerApplications.GetString(11)} {readerApplications.GetString(12)}";
+                        telephoneStaff = readerApplications.GetString(13);
+                    }
+                    else
+                    {
+                        staff = "";
+                        telephoneStaff = "";
+                    }
 
-                ApplicationCard applicationCard = new ApplicationCard(roleUser, id, client, staff, date, telephoneClient, telephoneStaff, hardware, typeFault, descProblem, state);
+                    ApplicationCard applicationCard = new ApplicationCard(roleUser, id, client, staff, date, telephoneClient, telephoneStaff, hardware, typeFault, descProblem, state);
 
-                flowLayoutPanelApplications.Controls.Add(applicationCard);
+                    flowLayoutPanelApplications.Controls.Add(applicationCard);
+                }
             }
 
             db.closeConnection();
